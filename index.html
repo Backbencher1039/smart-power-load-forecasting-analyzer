@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Smart Power Load Forecasting Tool</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      body {
+        font-family: Segoe UI;
+        background: #eef2f7;
+        padding: 40px;
+      }
+
+      .container {
+        width: 750px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+      }
+
+      input {
+        padding: 6px;
+        width: 80px;
+      }
+
+      button {
+        padding: 10px 16px;
+        margin-top: 10px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      canvas {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Smart Power Load Forecasting and Grid Stability Analyzer</h2>
+
+      <h3>Load Data Input</h3>
+      <h3>Upload Load Dataset (CSV)</h3>
+
+      <input type="file" id="csvFile" accept=".csv" />
+
+      <button onclick="loadCSV()">Load Dataset</button>
+
+      <table id="dataTable">
+        <tr>
+          <th>Time (Hour)</th>
+          <th>Load (MW)</th>
+        </tr>
+
+        <tr>
+          <td><input type="number" value="8" /></td>
+          <td><input type="number" /></td>
+        </tr>
+
+        <tr>
+          <td><input type="number" value="9" /></td>
+          <td><input type="number" /></td>
+        </tr>
+
+        <tr>
+          <td><input type="number" value="10" /></td>
+          <td><input type="number" /></td>
+        </tr>
+
+        <tr>
+          <td><input type="number" value="11" /></td>
+          <td><input type="number" /></td>
+        </tr>
+      </table>
+
+      <button onclick="addRow()">Add Data Row</button>
+
+      <br /><br />
+
+      Predict Load At Time:
+      <input type="number" id="predictX" step="0.1" />
+
+      <h3>Select Interpolation Method</h3>
+
+      <label>
+        <input type="radio" name="method" value="lagrange" checked />
+        Lagrange
+      </label>
+
+      <label>
+        <input type="radio" name="method" value="forward" />
+        Newton Forward
+      </label>
+
+      <label>
+        <input type="radio" name="method" value="backward" />
+        Newton Backward
+      </label>
+
+      <br /><br />
+
+      <button onclick="predictLoad()">Predict Load</button>
+
+      <div id="result"></div>
+      <div id="gridStatus"></div>
+      <button onclick="forecast24()">Generate 24 Hour Forecast</button>
+
+      <canvas id="loadChart"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
