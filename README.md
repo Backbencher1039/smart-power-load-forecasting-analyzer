@@ -42,5 +42,5 @@ hour,load
 
 ## Author
 
-Shimul  
+Shimul Chakraborty 
 BSc in Electrical and Electronic Engineering
